@@ -1,0 +1,14 @@
+Logos des clubs (PNG, nom de fichier exact) :
+
+ascap-pays-de-montbeliard-hb.png  ->  ASCAP Pays de Montbéliard HB
+as-auxois.png  ->  AS Auxois
+hb-arbois-poligny.png  ->  HB Arbois Poligny
+alc-longvic-b.png  ->  ALC Longvic (B)
+chevigny-st-sauveur-hb-b.png  ->  Chevigny St Sauveur HB (B)
+ent-saone-mamirolle-hb-b.png  ->  Ent. Saône Mamirolle HB (B)
+hbc-lure-villers.png  ->  HBC Lure Villers
+hbc-quingey-val-de-loue.png  ->  HBC Quingey Val de Loue
+ja-maiche.png  ->  JA Maiche
+ca-pontarlier-hb.png  ->  CA Pontarlier HB
+us-ledonienne.png  ->  US Lédonienne
+pays-riolais-hb.png  ->  Pays Riolais HB
