@@ -1064,13 +1064,13 @@ function journeeArticle(j){
     const bs=scorers(MY_TEAM,j), ts=bs.slice(0,3);
     // phrase dans le récit des résultats, en tête
     const lieu=side==="h"?"à domicile":chez(adv), por=ts[0]&&ts[0].b>=5?` ${nmFull(ts[0].name)} (${plur(ts[0].b,"but")})${ts[1]&&ts[1].b>=5?` et ${nmFull(ts[1].name)} (${ts[1].b})`:""} ${ts[1]&&ts[1].b>=5?"ont":"a"} mené l'attaque.`:"";
-    const lead=res==="V"?pick([`${T(MY_TEAM)} s'est imposé ${lieu} face à ${T(adv)} (${sc(ms_)}).`,`${T(MY_TEAM)} a pris le meilleur sur ${T(adv)} ${lieu} (${sc(ms_)}).`])
-      :res==="D"?pick([`${T(MY_TEAM)} s'est incliné ${lieu} face à ${T(adv)} (${sc(ms_)}).`,`Journée plus difficile pour ${T(MY_TEAM)}, battu ${lieu} par ${T(adv)} (${sc(ms_)}).`])
-      :`${T(MY_TEAM)} a partagé les points avec ${T(adv)} ${lieu} (${sc(ms_)}).`;
+    const lead=res==="V"?(side==="a"?pick([`${T(MY_TEAM)} s'est imposé ${lieu} (${sc(ms_)}).`,`${T(MY_TEAM)} a ramené la victoire de son déplacement ${lieu} (${sc(ms_)}).`]):pick([`${T(MY_TEAM)} s'est imposé à domicile face à ${T(adv)} (${sc(ms_)}).`,`Devant son public, ${T(MY_TEAM)} a pris le meilleur sur ${T(adv)} (${sc(ms_)}).`]))
+      :res==="D"?(side==="a"?pick([`${T(MY_TEAM)} s'est incliné ${lieu} (${sc(ms_)}).`,`Journée plus difficile pour ${T(MY_TEAM)}, battu ${lieu} (${sc(ms_)}).`]):pick([`${T(MY_TEAM)} s'est incliné à domicile face à ${T(adv)} (${sc(ms_)}).`,`Journée plus difficile pour ${T(MY_TEAM)}, battu à domicile par ${T(adv)} (${sc(ms_)}).`]))
+      :`${T(MY_TEAM)} a partagé les points avec ${T(adv)} ${side==="a"?lieu:"à domicile"} (${sc(ms_)}).`;
     P1.unshift(lead+por);
     // stats de l'encadré
-    const st=[], pN=n=>{const f=nmFull(n).split(" ");return f.length>1?f[0][0]+". "+f.slice(1).join(" "):f[0];};
-    if(bs.length) st.push(["Buteurs",bs.slice(0,4).map(x=>`${pN(x.name)} ${x.b}`).join(", ")]);
+    const st=[], pN=n=>{const f=nmFull(n).split(" ");return f.length>1?f[0][0]+".\u00a0"+f.slice(1).join("\u00a0"):f[0];};
+    if(bs.length) st.push([F?"Buteuses":"Buteurs",bs.slice(0,4).map(x=>`${pN(x.name)} ${x.b}`).join(", ")]);
     const sv={}; ((ms_.info&&ms_.info.ev)||[]).forEach(e=>{ if(e.c==="A"&&e.s===side&&e.n) sv[e.n]=(sv[e.n]||0)+1; });
     const gks=Object.entries(sv).sort((a,b)=>b[1]-a[1]);
     if(gks.length) st.push([F?"Gardiennes":"Gardiens",gks.map(([n,v])=>`${pN(n)} ${v} arrêt${v>1?"s":""}`).join(", ")]);
