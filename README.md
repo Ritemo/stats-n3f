@@ -20,7 +20,7 @@ Le robot qui remplit le Google Sheets des filles tourne depuis `stats-hand` (fic
 
 - `prhb-n3f-r7k2q` : match du Pays Riolais et journées complètes ;
 - `prhb-n3f-tous-r7k2q` : tous les résultats ;
-- `prhb-alerte-r7k2q` : alerte technique si une mise en ligne est bloquée.
+- `prhb-alerte-r7k2q` : alerte technique, pour la personne qui gère l'appli : problème du robot (erreur, panne, feuille absente 24 h après un match) ou mise en ligne bloquée.
 
 ## Nouvelle saison
 
