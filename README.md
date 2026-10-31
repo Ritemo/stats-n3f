@@ -1,24 +1,31 @@
-# Stats Hand N3F : mode d'emploi
+# Stats Hand : Nationale 3 féminine
 
-Ce dépôt contient l'appli de statistiques de l'équipe **seniors filles du Pays Riolais HB** (Nationale 3 féminine) : https://ritemo.github.io/stats-n3f/
+Appli web (PWA) des statistiques du championnat de Nationale 3 féminine, saison 2026-2027, pour les joueuses du Pays Riolais HB.
 
-**Le mode d'emploi complet est dans le dépôt voisin [stats-hand](https://github.com/Ritemo/stats-hand#readme)** : fonctionnement, gestes courants, que faire si ça casse, passage à la saison suivante. C'est aussi là que se trouve le **robot**, qui remplit les statistiques des deux équipes.
+- Appli : https://ritemo.github.io/stats-n3f/
+- Appli garçons et **robot d'import des feuilles de match** : dépôt [`stats-hand`](https://github.com/Ritemo/stats-hand) (tout y est expliqué)
 
 ## Ce qui est propre à ce dépôt
 
 | Fichier | Rôle |
 |---|---|
-| `config.js` | réglages de l'appli filles : nom, Google Sheets des filles, accords au féminin, abonnements de notifications. **Ne pas le remplacer par celui des garçons.** |
-| `manifest.json`, `icon-*.png` | nom et icône de l'appli sur le téléphone |
-| `logos/` | logos des clubs de la poule (voir `LISTE-LOGOS.txt`) |
+| `config.js` | Seul fichier propre à l'appli filles : titre, adresse CSV du Google Sheets, numéros d'onglets (gid), sujets de notification. |
+| `manifest.json`, `icon-*.png`, `logos/` | Nom, icônes et logos des clubs de la poule. |
+| `index.html`, `sw.js`, `tests/` | **Identiques** à `stats-hand` : toute modification se fait dans les deux dépôts. |
+| `.github/workflows/verif-deploy.yml` | Test puis mise en ligne à chaque modification (même fonctionnement que les garçons). |
 
-Les autres fichiers (`index.html`, `sw.js`, `tests/verif.js`, `.github/workflows/verif-deploy.yml`) sont **identiques** à ceux de stats-hand. Pour une mise à jour de l'appli, on dépose le même `index.html` (et `sw.js` s'il a changé) dans les deux dépôts.
+Le robot qui remplit le Google Sheets des filles tourne depuis `stats-hand` (fichier `robot-fdm/robot/config_n3f.json`, variable `ROBOT_MODE_N3F`).
 
-## Repères
+## Notifications (ntfy.sh)
 
-| Élément | Valeur |
-|---|---|
-| Google Sheets des filles | ID `1bFnSlIoJ8UMcl6yyvGi6OhxzJTprp04G0fQuj0fx8i0` |
-| Notifications, match du Pays Riolais | abonnement ntfy `prhb-n3f-r7k2q` |
-| Notifications, tous les résultats | abonnement ntfy `prhb-n3f-tous-r7k2q` |
-| Alertes pour la personne qui gère l'appli | abonnement ntfy `prhb-alerte-r7k2q` |
+- `prhb-n3f-r7k2q` : match du Pays Riolais et journées complètes ;
+- `prhb-n3f-tous-r7k2q` : tous les résultats ;
+- `prhb-alerte-r7k2q` : alerte technique si une mise en ligne est bloquée.
+
+## Nouvelle saison
+
+1. Nouveau Google Sheets partagé en éditeur avec le compte de service et publié en CSV.
+2. Ici : `sheet`, `gid`, `marque` et `championnat` dans `config.js`, logos dans `logos/`.
+3. Dans `stats-hand` : `config_n3f.json` (`sheet_id`, `poule_url`, `journees`, `equipes`).
+
+Pour le dépannage et les limites gratuites, voir le README de `stats-hand`.
