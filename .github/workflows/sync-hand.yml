@@ -1,13 +1,14 @@
 name: Synchronisation depuis stats-hand
 
 # L'appli des filles utilise le même code que celle des garçons (dépôt stats-hand).
-# Ce robot recopie chaque heure index.html, sw.js et tests/ depuis stats-hand.
+# Ce robot recopie index.html, sw.js et tests/ depuis stats-hand.
+# Il est lancé par Claude juste après chaque modification de stats-hand, et repasse toutes les 15 minutes par sécurité.
 # S'il y a du nouveau, il enregistre la copie ici puis lance la vérification et la mise en ligne.
 # Rien à régler : stats-hand est public, aucune clé n'est nécessaire.
 # Les fichiers propres aux filles (config.js, manifest.json, icônes, logos) ne sont jamais touchés.
 on:
   schedule:
-    - cron: "41 * * * *"          # chaque heure, à la minute 41
+    - cron: "8,23,38,53 * * * *"  # toutes les 15 minutes (filet de sécurité)
   workflow_dispatch:              # bouton « Run workflow » pour synchroniser tout de suite
 
 permissions:
