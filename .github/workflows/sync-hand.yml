@@ -1,0 +1,61 @@
+name: Synchronisation depuis stats-hand
+
+# L'appli des filles utilise le même code que celle des garçons (dépôt stats-hand).
+# Ce robot recopie chaque heure index.html, sw.js et tests/ depuis stats-hand.
+# S'il y a du nouveau, il enregistre la copie ici puis lance la vérification et la mise en ligne.
+# Rien à régler : stats-hand est public, aucune clé n'est nécessaire.
+# Les fichiers propres aux filles (config.js, manifest.json, icônes, logos) ne sont jamais touchés.
+on:
+  schedule:
+    - cron: "41 * * * *"          # chaque heure, à la minute 41
+  workflow_dispatch:              # bouton « Run workflow » pour synchroniser tout de suite
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: sync-hand
+  cancel-in-progress: false
+
+jobs:
+  synchro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      change: ${{ steps.copie.outputs.change }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: Copier le code commun depuis stats-hand
+        id: copie
+        run: |
+          git clone -q --depth 1 https://github.com/Ritemo/stats-hand.git /tmp/hand
+          cp /tmp/hand/index.html /tmp/hand/sw.js .
+          rm -rf tests && cp -r /tmp/hand/tests tests
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Déjà à jour."
+            echo "change=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git status --short
+          SHA=$(git -C /tmp/hand rev-parse --short HEAD)
+          git config user.name "robot-synchro"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A index.html sw.js tests
+          git commit -q -m "Synchro du code commun depuis stats-hand ($SHA)"
+          git push -q origin HEAD:main
+          echo "change=true" >> "$GITHUB_OUTPUT"
+      - name: Alerte si la synchro échoue
+        if: failure()
+        env:
+          LIEN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          jq -n --arg c "$LIEN" \
+            '{topic:"prhb-alerte-r7k2q", title:"Synchro stats-hand vers stats-n3f en échec", message:"Le code commun n a pas pu être recopié. L appli des filles garde sa version actuelle.", click:$c, priority:4}' \
+            | curl -s -H "Content-Type: application/json" -d @- https://ntfy.sh/ || true
+
+  verification-et-mise-en-ligne:
+    needs: synchro
+    if: needs.synchro.outputs.change == 'true'
+    uses: ./.github/workflows/verif-deploy.yml

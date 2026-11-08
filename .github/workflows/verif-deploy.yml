@@ -11,6 +11,7 @@ on:
       - "robot-fdm/**"
       - ".github/workflows/robot-fdm.yml"
   workflow_dispatch:              # bouton « Run workflow » pour relancer à la main
+  workflow_call:                  # appelé par la synchronisation depuis stats-hand (sync-hand.yml)
 
 permissions:
   contents: read
@@ -27,6 +28,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event_name == 'push' && github.sha || 'main' }}   # après une synchro : la version à jour de main
       - uses: actions/setup-node@v5
         with:
           node-version: 22
