@@ -21,6 +21,6 @@ Appli PWA (GitHub Pages) des stats du championnat N3F, saison 2026-2027. Le code
 ## Règles propres à ce projet
 
 - Tests : `node tests/verif.js .`
-- `index.html`, `sw.js` et `tests/` sont **recopiés automatiquement** depuis `stats-hand` (`.github/workflows/sync-hand.yml`, lancé juste après chaque modification, et toutes les 15 minutes par sécurité). Ne jamais les modifier ici : faire la modification dans `stats-hand`, puis lancer la synchro si c'est urgent. Seuls `config.js`, `manifest.json`, les icônes et `logos/` sont propres aux filles.
+- `index.html`, `sw.js` et `tests/` sont identiques à ceux de `stats-hand` : la modification se fait dans `stats-hand`, puis Claude recopie lui-même ces fichiers ici et les pousse (pas de robot de synchronisation). Seuls `config.js`, `manifest.json`, les icônes et `logos/` sont propres aux filles.
 - Le robot n'est pas ici : il tourne depuis `stats-hand` (`robot-fdm/robot/config_n3f.json`).
 - Même logique de stats que les garçons : % d'arrêt calculé au niveau équipe.

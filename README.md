@@ -11,9 +11,8 @@ Appli web (PWA) des statistiques du championnat de Nationale 3 féminine, saison
 |---|---|
 | `config.js` | Seul fichier propre à l'appli filles : titre, adresse CSV du Google Sheets, numéros d'onglets (gid), sujets de notification. |
 | `manifest.json`, `icon-*.png`, `logos/` | Nom, icônes et logos des clubs de la poule. |
-| `index.html`, `sw.js`, `tests/` | **Recopiés automatiquement** depuis `stats-hand`, aussitôt après chaque modification faite par Claude, et toutes les 15 minutes par sécurité (robot `.github/workflows/sync-hand.yml`). Ne pas les modifier ici : toute modification se fait dans `stats-hand`. |
+| `index.html`, `sw.js`, `tests/` | Identiques à ceux de `stats-hand`. Toute modification se fait d'abord dans `stats-hand`, puis les mêmes fichiers sont recopiés ici (par Claude, ou à la main avec **Add file > Upload files**). |
 | `.github/workflows/verif-deploy.yml` | Test puis mise en ligne à chaque modification (même fonctionnement que les garçons), y compris après une synchronisation. |
-| `.github/workflows/sync-hand.yml` | Synchronisation du code commun depuis `stats-hand`, déclenchée par Claude après chaque modification, toutes les 15 minutes par sécurité, ou à la demande (*Run workflow*). Alerte sur `prhb-alerte-r7k2q` en cas d'échec. |
 
 Le robot qui remplit le Google Sheets des filles tourne depuis `stats-hand` (fichier `robot-fdm/robot/config_n3f.json`, variable `ROBOT_MODE_N3F`).
 
