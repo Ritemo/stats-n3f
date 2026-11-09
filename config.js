@@ -14,5 +14,7 @@ self.APP = {
   ntfy: "prhb-n3f-r7k2q",            // notifications : Pays Riolais seulement
   ntfyTous: "prhb-n3f-tous-r7k2q",   // notifications : tous les résultats
   cache: "hand-n3f-cache",           // copie hors connexion des données
+  entete: "#3A1427",                // couleur de l'en-tête et des barres du téléphone (bordeaux nuit : filles)
+  accent: "#C8457A",                 // accent décoratif (traits des cartes) ; l'orange reste pour Rioz
   nomsCourts: { "ASCAP Pays de Montbéliard HB": "ASCAP Montbéliard", "Ent. Saône Mamirolle HB (B)": "Mamirolle", "HBC Quingey Val de Loue": "Quingey" }
 };
